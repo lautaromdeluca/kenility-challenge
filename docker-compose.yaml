@@ -1,0 +1,33 @@
+x-docker-compose-version: '3.1'
+services:
+  api:
+    build: ./
+    env_file: ./.env
+    working_dir: /usr/app
+    ports:
+      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+    restart: always
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:6
+    container_name: mongo-challenge
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_ROOT_USER
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_ROOT_PASSWORD
+    networks:
+      - challenge-network
+    volumes:
+      - mongo-data:/data/db
+
+networks:
+  challenge-network:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local
