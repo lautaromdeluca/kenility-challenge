@@ -9,6 +9,8 @@ services:
     restart: always
     depends_on:
       - mongo
+    networks:
+      - challenge-network
 
   mongo:
     image: mongo:6
