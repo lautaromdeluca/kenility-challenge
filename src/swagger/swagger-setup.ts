@@ -11,7 +11,7 @@ export const setupSwagger = (app: INestApplication) => {
   const config = new DocumentBuilder()
     .setTitle('Kenility Challenge Api')
     .setDescription(
-      '**Changelog URL:** [Click here](https://bitbucket.org/gapwebapps/vipo-surveys-api/src/dev-vipo-test/CHANGELOG.md)',
+      '**README.me:** [Click here](https://github.com/trustyCappelletti/kenility-challenge/blob/master/README.md)',
     )
     .setVersion(configService.get<string>('API_VERSION', 'Missing'))
     .addApiKey(
