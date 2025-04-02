@@ -2,6 +2,10 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { INestApplication } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 
+export enum SECURITY {
+  JWT_TOKEN = 'JWT-auth',
+}
+
 export const setupSwagger = (app: INestApplication) => {
   const configService = app.get(ConfigService)
   const config = new DocumentBuilder()
@@ -10,15 +14,15 @@ export const setupSwagger = (app: INestApplication) => {
       '**Changelog URL:** [Click here](https://bitbucket.org/gapwebapps/vipo-surveys-api/src/dev-vipo-test/CHANGELOG.md)',
     )
     .setVersion(configService.get<string>('API_VERSION', 'Missing'))
-    // .addApiKey(
-    //   {
-    //     type: 'apiKey',
-    //     name: 'Authorization',
-    //     in: 'header',
-    //     description: 'JWT Token',
-    //   },
-    //   SECURITY.JWT_TOKEN,
-    // )
+    .addApiKey(
+      {
+        type: 'apiKey',
+        name: 'Authorization',
+        in: 'header',
+        description: 'JWT Token',
+      },
+      SECURITY.JWT_TOKEN,
+    )
     .build()
   const document = SwaggerModule.createDocument(app, config, {
     autoTagControllers: false,

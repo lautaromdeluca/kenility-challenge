@@ -10,6 +10,6 @@ import { EnvironmentConfigService } from './environment-config.service'
     }),
   ],
   providers: [EnvironmentConfigService],
-  exports: [EnvironmentConfigService],
+  exports: [EnvironmentConfigService, ConfigModule],
 })
-export class EnvironmentConfigModule { }
+export class EnvironmentConfigModule {}

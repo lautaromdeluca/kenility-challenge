@@ -1,99 +1,75 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Kenility Challenge
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Prerequisites
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/) (Usually included with Docker Desktop)
 
-## Description
+## Getting Started
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+1. **Clone the repository:**
 
-## Project setup
+   ```bash
+   git clone <your-repository-url>
+   cd <your-repository-directory>
+   ```
 
-```bash
-$ npm install
-```
+2. **Create Environment File:**
+   Copy the contents of `env.example` and create a `.env` file in the project root.
+3. **Build and Run with Docker Compose:**
 
-## Compile and run the project
+   ```bash
+   docker-compose up -d --build
+   ```
 
-```bash
-# development
-$ npm run start
+## Running the Application
 
-# watch mode
-$ npm run start:dev
+- **Start:** `docker-compose up -d`
+- **Stop:** `docker-compose down`
 
-# production mode
-$ npm run start:prod
-```
+This project is a sample NestJS application demonstrating:
 
-## Run tests
+- User authentication using JWT (JSON Web Tokens).
+- Integration with MongoDB using Mongoose for data persistence.
+- Object storage using MinIO for handling file uploads (specifically product images).
+- Automated environment setup using Docker and Docker Compose.
+- API documentation using Swagger (OpenAPI).
 
-```bash
-# unit tests
-$ npm run test
+## API Documentation (Swagger)
 
-# e2e tests
-$ npm run test:e2e
+Once the application is running (specifically the `nest-app` container), you can access the Swagger UI in your browser. Navigate to:
 
-# test coverage
-$ npm run test:cov
-```
+`http://localhost:<PORT>/docs`
 
-## Deployment
+(Replace `<PORT>` with the port your NestJS application is running on, typically 3000 as defined in your `.env` or `docker-compose.yml`).
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+The Swagger UI allows you to interactively explore the API endpoints, view request/response schemas, and even execute requests (including file uploads).
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## Features
 
-```bash
-$ npm install -g mau
-$ mau deploy
-```
+- **Authentication:** Secure endpoints using JWT (`@nestjs/jwt`, `bcryptjs`). Includes `JwtAuthService` for token handling and `JwtAuthGuard` for route protection.
+- **User/Product Management:** Basic setup for managing resources (example focused on Products).
+- **Image Upload:** Endpoint for uploading product images (`multipart/form-data`) directly to a MinIO bucket.
+- **Database Integration:** Uses Mongoose (`@nestjs/mongoose`) for MongoDB interaction. Includes common fields like `_id`, `createdAt`, `updatedAt`, `__v`, and `deletedAt` (for soft deletes) documented via a `BaseResponseEntity`.
+- **Object Storage:** Integrates with MinIO for storing uploaded files. Includes `MinioService` to abstract interactions.
+- **Containerized Environment:** Uses Docker Compose to easily set up and run the NestJS application, MongoDB database, and MinIO object storage.
+- **Automated Bucket Setup:** Includes a Docker Compose service (`createbuckets`) using the MinIO Client (`mc`) to automatically create the required MinIO bucket and set its access policy on startup.
+- **API Documentation:** Automatically generated and interactive API documentation available via Swagger UI (`@nestjs/swagger`).
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Tech Stack
 
-## Resources
+- **Backend:** NestJS (TypeScript)
+- **Database:** MongoDB (with Mongoose)
+- **Object Storage:** MinIO
+- **Authentication:** JWT (`@nestjs/jwt`, `bcryptjs`)
+- **API Documentation:** Swagger (`@nestjs/swagger`)
+- **Containerization:** Docker, Docker Compose
 
-Check out a few resources that may come in handy when working with NestJS:
+## Docker Compose Services
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+This setup includes the following services defined in `docker-compose.yml`:
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+- `nest-app`: The main NestJS application container.
+- `mongo`: The MongoDB database container. (You might need to configure persistence using volumes).
+- `minio`: The MinIO object storage server container. Data is persisted using a Docker volume (`minio_data`).
+- `createbuckets`: A short-lived container using the MinIO Client (`mc`) that runs after `minio` is healthy to automatically create the necessary bucket (`product-images`) and set its access policy.

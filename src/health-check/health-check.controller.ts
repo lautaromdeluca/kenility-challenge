@@ -1,12 +1,10 @@
-import { CustomApiOkResponse } from 'src/decorators/swagger'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
-import { Serialize } from 'src/decorators/serializer'
-import { InjectConnection } from '@nestjs/mongoose'
 import { Controller, Get } from '@nestjs/common'
-import { Connection } from 'mongoose'
 
 import { HealthCheckResponseDto } from './dto/health-check.dto'
+import { CustomApiOkResponse } from '../decorators/swagger'
 import { HealthCheckService } from './health-check.service'
+import { Serialize } from '../decorators/serializer'
 
 @Controller('health-check')
 export class HealthCheckController {
