@@ -40,7 +40,7 @@ Once the application is running (specifically the `nest-app` container), you can
 
 `http://localhost:<PORT>/docs`
 
-(Replace `<PORT>` with the port your NestJS application is running on, typically 3000 as defined in your `.env` or `docker-compose.yml`).
+(Replace `<PORT>` with the port your NestJS application is running on, typically 4000 as defined in your `.env` or `docker-compose.yml`).
 
 The Swagger UI allows you to interactively explore the API endpoints, view request/response schemas, and even execute requests (including file uploads).
 
