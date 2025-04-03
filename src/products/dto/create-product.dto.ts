@@ -5,7 +5,7 @@ import {
   IsString,
   IsNumber,
 } from 'class-validator'
-import { OmitType } from '@nestjs/mapped-types'
+import { OmitType } from '@nestjs/swagger'
 
 import { ProductDocs } from '../documentation/create-product.request'
 
@@ -15,6 +15,7 @@ export class CreateProductDto extends OmitType(ProductDocs, [
   'createdAt',
   'updatedAt',
   'deletedAt',
+  'imageUrl',
 ]) {
   @IsNotEmpty({ message: 'Product name should not be empty.' })
   @IsString({ message: 'Product name must be a string.' })
