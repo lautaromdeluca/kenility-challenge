@@ -20,7 +20,7 @@ export class UsersController {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwt: JwtAuthService,
-  ) {}
+  ) { }
   @ApiOperation({
     description:
       'Creates new user, password must have at least 1 uppercase, ' +
@@ -28,8 +28,6 @@ export class UsersController {
   })
   @ApiTags('Users')
   @Post()
-  @UseGuards(JwtAuthGuard)
-  @ApiSecurity('JWT-auth')
   async create(@Body() createUserDto: CreateUserRequestDto) {
     try {
       return await this.usersService.create(createUserDto)
