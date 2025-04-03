@@ -10,7 +10,7 @@
 1. **Clone the repository:**
 
    ```bash
-   git clone git@github.com:trustyCappelletti/kenility-challenge.git
+   git clone git@github.com: lautaromdeluca/kenility-challenge.git
    ```
 
 2. **Create Environment File:**
